@@ -1,19 +1,25 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-
-import "./index.css";
+import React from "react";
+import ReactDOM from "react-dom/client";
 
 import App from "./App.jsx";
 
-import { AuthProvider } from "./context/AuthContext.jsx";
-import { ProjectProvider } from "./context/ProjectContext.jsx";
+import "./index.css";
 
-createRoot(document.getElementById("root")).render(
-  <StrictMode>
+import { ProjectProvider } from "./context/ProjectContext.jsx";
+import { AuthProvider } from "./context/AuthContext.jsx";
+
+import { registerSW } from "virtual:pwa-register";
+
+registerSW({
+  immediate: true,
+});
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
     <AuthProvider>
       <ProjectProvider>
         <App />
       </ProjectProvider>
     </AuthProvider>
-  </StrictMode>,
+  </React.StrictMode>,
 );
