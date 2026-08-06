@@ -29,7 +29,7 @@ button {
   background: var(--background);
 }
 
-/* 로그인 */
+/* 濡쒓렇�� */
 
 .auth-screen {
   display: flex;
@@ -90,7 +90,7 @@ button {
   font-size: 13px;
 }
 
-/* 헤더 */
+/* �ㅻ뜑 */
 
 .header {
   padding: 34px 20px 25px;
@@ -124,7 +124,7 @@ button {
   opacity: 0.74;
 }
 
-/* 사용자 정보 */
+/* �ъ슜�� �뺣낫 */
 
 .user-bar {
   display: flex;
@@ -169,7 +169,7 @@ button {
   font-weight: 700;
 }
 
-/* 본문 */
+/* 蹂몃Ц */
 
 .main {
   width: min(100%, 720px);
@@ -177,7 +177,7 @@ button {
   padding: 14px 10px 22px;
 }
 
-/* 홈 */
+/* �� */
 
 .home-page {
   display: grid;
@@ -425,7 +425,7 @@ button {
   font-size: 12px;
 }
 
-/* 기존 공통 카드 */
+/* 湲곗〈 怨듯넻 移대뱶 */
 
 .current-card,
 .summary-card,
@@ -527,7 +527,7 @@ button {
   background: linear-gradient(90deg, var(--blue), #55a868);
 }
 
-/* 일반 페이지 */
+/* �쇰컲 �섏씠吏� */
 
 .page-card {
   padding: 19px 15px;
@@ -539,7 +539,7 @@ button {
   font-size: 23px;
 }
 
-/* 폼 */
+/* �� */
 
 form {
   display: grid;
@@ -606,7 +606,7 @@ textarea {
   color: var(--red);
 }
 
-/* 거래 내역 */
+/* 嫄곕옒 �댁뿭 */
 
 .history-item {
   display: flex;
@@ -655,7 +655,7 @@ textarea {
   color: var(--red);
 }
 
-/* 일별 */
+/* �쇰퀎 */
 
 .daily-card {
   margin-bottom: 11px;
@@ -711,7 +711,7 @@ textarea {
   color: var(--subtext);
 }
 
-/* 하단 메뉴 */
+/* �섎떒 硫붾돱 */
 
 .bottom-nav {
   position: fixed;
@@ -781,4 +781,84 @@ textarea {
   .today-grid strong {
     font-size: 12px;
   }
+}
+
+.trend-card {
+  padding: 17px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--card);
+  box-shadow: 0 7px 20px rgba(16, 42, 67, 0.06);
+}
+
+.trend-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.trend-heading span {
+  display: block;
+  color: var(--subtext);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+}
+
+.trend-heading strong {
+  display: block;
+  margin-top: 5px;
+  font-size: 18px;
+}
+
+.trend-heading p {
+  margin: 0;
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 800;
+  text-align: right;
+}
+
+.trend-chart {
+  height: 150px;
+  margin-top: 18px;
+}
+
+.trend-chart svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.trend-grid-line {
+  stroke: #dfe7ee;
+  stroke-width: 0.7;
+  stroke-dasharray: 3 3;
+  vector-effect: non-scaling-stroke;
+}
+
+.trend-line {
+  fill: none;
+  stroke: var(--blue);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.trend-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 8px;
+  font-size: 12px;
+}
+
+.trend-footer span {
+  color: var(--subtext);
+}
+
+.trend-footer strong {
+  color: var(--navy);
 }
