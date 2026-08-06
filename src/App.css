@@ -1,0 +1,517 @@
+:root {
+  --navy: #102a43;
+  --blue: #2f80ed;
+  --green: #2e7d32;
+  --red: #c62828;
+  --background: #edf3f8;
+  --card: #ffffff;
+  --text: #102a43;
+  --subtext: #6b7b8c;
+  --border: #dbe4ec;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button {
+  cursor: pointer;
+}
+
+.app {
+  min-height: 100vh;
+  padding-bottom: 90px;
+  background: var(--background);
+}
+
+/* 로그인 */
+
+.auth-screen {
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: var(--background);
+}
+
+.auth-card {
+  width: min(100%, 420px);
+  padding: 32px 24px;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  background: var(--card);
+  box-shadow: 0 14px 36px rgba(16, 42, 67, 0.1);
+  text-align: center;
+}
+
+.auth-eyebrow {
+  margin: 0 0 12px;
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.6px;
+}
+
+.auth-card h1 {
+  margin: 0;
+  color: var(--navy);
+  font-size: 30px;
+  line-height: 1.05;
+}
+
+.auth-description {
+  margin: 18px 0 0;
+  color: var(--subtext);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.google-login-btn {
+  width: 100%;
+  margin-top: 24px;
+  padding: 15px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--blue);
+  color: white;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.auth-error {
+  margin: 14px 0 0;
+  color: var(--red);
+  font-size: 13px;
+}
+
+/* 헤더 */
+
+.header {
+  padding: 36px 20px 26px;
+  background: var(--navy);
+  color: white;
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.7px;
+  opacity: 0.72;
+}
+
+.title {
+  margin: 10px 0 0;
+  font-size: 32px;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.subtitle {
+  margin: 12px 0 0;
+  font-size: 14px;
+  opacity: 0.76;
+}
+
+/* 로그인 사용자 정보 */
+
+.user-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--border);
+  background: white;
+}
+
+.user-bar div {
+  min-width: 0;
+}
+
+.user-bar strong,
+.user-bar small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-bar strong {
+  font-size: 13px;
+}
+
+.user-bar small {
+  margin-top: 2px;
+  color: var(--subtext);
+  font-size: 11px;
+}
+
+.user-bar button {
+  flex-shrink: 0;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: white;
+  color: var(--subtext);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* 본문 */
+
+.main {
+  width: min(100%, 720px);
+  margin: auto;
+  padding: 14px 10px;
+}
+
+.current-card,
+.summary-card,
+.goal-card,
+.page-card,
+.daily-card {
+  border: 1px solid var(--border);
+  background: var(--card);
+  box-shadow: 0 7px 20px rgba(16, 42, 67, 0.06);
+}
+
+/* CURRENT */
+
+.current-card {
+  padding: 21px 17px;
+  border-radius: 21px;
+}
+
+.card-label {
+  margin: 0;
+  color: var(--subtext);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.current-value {
+  display: block;
+  margin-top: 8px;
+  font-size: 33px;
+  line-height: 1.1;
+}
+
+.card-caption {
+  margin: 10px 0 0;
+  color: var(--subtext);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* 요약 카드 */
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 11px;
+  margin-top: 13px;
+}
+
+.summary-card {
+  min-width: 0;
+  padding: 16px;
+  border-radius: 16px;
+}
+
+.summary-card p {
+  margin: 0;
+  color: var(--subtext);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.summary-card strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 19px;
+  word-break: break-word;
+}
+
+/* 다음 목표 */
+
+.goal-card {
+  margin-top: 13px;
+  padding: 16px;
+  border-radius: 16px;
+}
+
+.goal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.goal-header span {
+  color: var(--subtext);
+  font-size: 13px;
+}
+
+.goal-header strong {
+  font-size: 13px;
+  text-align: right;
+}
+
+.progress-track {
+  height: 13px;
+  margin-top: 14px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e4eaf0;
+}
+
+.progress-bar {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--blue), #55a868);
+}
+
+/* 일반 페이지 */
+
+.page-card {
+  padding: 19px 15px;
+  border-radius: 19px;
+}
+
+.page-card h2 {
+  margin: 0 0 19px;
+  font-size: 23px;
+}
+
+/* 폼 */
+
+form {
+  display: grid;
+  gap: 14px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label,
+form > label {
+  display: grid;
+  gap: 6px;
+  color: var(--subtext);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  min-width: 0;
+  padding: 13px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: white;
+  color: var(--text);
+  font-size: 16px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.primary-btn,
+.secondary-btn,
+.danger-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 13px;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.primary-btn {
+  border: 0;
+  background: var(--blue);
+  color: white;
+}
+
+.secondary-btn {
+  border: 1px solid var(--navy);
+  background: white;
+  color: var(--navy);
+}
+
+.danger-btn {
+  border: 1px solid #efc9c9;
+  background: #fff3f3;
+  color: var(--red);
+}
+
+/* 거래 내역 */
+
+.history-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid #edf2f6;
+}
+
+.history-item:last-child {
+  border-bottom: 0;
+}
+
+.history-item p,
+.history-item small {
+  display: block;
+  margin: 4px 0 0;
+  color: var(--subtext);
+}
+
+.history-actions {
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.payment-text {
+  color: var(--green);
+}
+
+.expense-text {
+  color: var(--red);
+}
+
+.text-btn {
+  margin-top: 7px;
+  padding: 4px;
+  border: 0;
+  background: transparent;
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.danger-text {
+  color: var(--red);
+}
+
+/* 일별 요약 */
+
+.daily-card {
+  margin-bottom: 11px;
+  padding: 14px;
+  border-radius: 15px;
+}
+
+.daily-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.saving-positive,
+.saving-negative {
+  padding: 5px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.saving-positive {
+  background: #e5f4e8;
+  color: var(--green);
+}
+
+.saving-negative {
+  background: #fdeaea;
+  color: var(--red);
+}
+
+.daily-card dl {
+  margin: 12px 0 0;
+}
+
+.daily-card dl div {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-top: 1px solid #edf2f6;
+}
+
+.daily-card dt {
+  color: var(--subtext);
+}
+
+.daily-card dd {
+  margin: 0;
+  font-weight: 700;
+}
+
+.empty-message {
+  color: var(--subtext);
+}
+
+/* 하단 메뉴 */
+
+.bottom-nav {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 30;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  min-height: 76px;
+  padding-bottom: env(safe-area-inset-bottom);
+  border-top: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(14px);
+}
+
+.bottom-nav button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  border: 0;
+  background: transparent;
+  color: #8a99aa;
+}
+
+.bottom-nav button span:first-child {
+  font-size: 19px;
+}
+
+.bottom-nav button span:last-child {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.bottom-nav button.active {
+  color: var(--blue);
+}
+
+@media (max-width: 420px) {
+  .header {
+    padding: 31px 17px 23px;
+  }
+
+  .title {
+    font-size: 29px;
+  }
+
+  .current-value {
+    font-size: 30px;
+  }
+
+  .summary-card strong {
+    font-size: 17px;
+  }
+}
