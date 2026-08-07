@@ -3717,3 +3717,49 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+
+/* ===== PMZ V11 IOS DATE/MONTH WIDTH FIX ===== */
+/* Prevent native iOS Safari date/month controls from overflowing cards. */
+
+input[type="date"],
+input[type="month"] {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.v9-form-grid,
+.v9-history-filter {
+  min-width: 0;
+}
+
+.v9-form-grid label,
+.v9-history-filter label {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.v9-form-grid input,
+.v9-form-grid select,
+.v9-history-filter input,
+.v9-history-filter select {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+@supports (-webkit-touch-callout: none) {
+  input[type="date"],
+  input[type="month"] {
+    min-height: 48px;
+    overflow: hidden;
+  }
+}
