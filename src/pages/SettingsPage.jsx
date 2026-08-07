@@ -61,24 +61,21 @@ export default function SettingsPage() {
     );
 
     const now = new Date();
-
     const daysInMonth = new Date(
       now.getFullYear(),
       now.getMonth() + 1,
       0,
     ).getDate();
 
-    const dailyBudget =
-      daysInMonth > 0
-        ? availableBudget / daysInMonth
-        : 0;
-
     return {
       monthlyIncome,
       fixedExpense,
       monthlyGoal,
       availableBudget,
-      dailyBudget,
+      dailyBudget:
+        daysInMonth > 0
+          ? availableBudget / daysInMonth
+          : 0,
     };
   }, [
     form.monthlyIncome,
@@ -113,228 +110,180 @@ export default function SettingsPage() {
   }
 
   function handleReset() {
-    const confirmed = window.confirm(
-      "설정과 모든 거래 내역을 삭제할까요?",
-    );
-
-    if (!confirmed) {
-      return;
+    if (
+      window.confirm(
+        "설정과 모든 거래 내역을 삭제할까요?",
+      )
+    ) {
+      resetAll();
     }
-
-    resetAll();
   }
 
   if (dataLoading) {
     return (
-      <section className="page-card">
-        <h2>설정</h2>
-
-        <p className="empty-message">
+      <section className="v9-settings-shell">
+        <div className="v9-settings-loading">
           클라우드 데이터를 불러오고 있습니다.
-        </p>
+        </div>
       </section>
     );
   }
 
   return (
-    <section className="page-card">
-      <h2>설정</h2>
+    <section className="v9-settings-shell">
+      <header className="v9-page-heading">
+        <span>CONTROL CENTER</span>
+        <h2>Settings</h2>
+        <p>프로젝트 기준값과 월간 예산을 관리합니다.</p>
+      </header>
 
       {syncError && (
-        <div className="sync-error">
-          {syncError}
-        </div>
+        <div className="sync-error">{syncError}</div>
       )}
 
-      <form onSubmit={handleSubmit}>
-        <label>
-          프로젝트 이름
-          <input
-            name="projectName"
-            value={form.projectName}
-            onChange={handleChange}
-            placeholder="직접 입력"
-          />
-        </label>
+      <form
+        className="v9-settings-form"
+        onSubmit={handleSubmit}
+      >
+        <section className="v9-settings-panel">
+          <div className="v9-panel-title">
+            <span>PROJECT</span>
+            <strong>기본 설정</strong>
+          </div>
 
-        <label>
-          시작 부채
-          <input
-            name="startDebt"
-            type="text"
-            inputMode="numeric"
-            value={form.startDebt}
-            onChange={handleChange}
-            placeholder="직접 입력"
-          />
-        </label>
+          <div className="v9-form-grid">
+            <label>
+              프로젝트 이름
+              <input
+                name="projectName"
+                value={form.projectName}
+                onChange={handleChange}
+                placeholder="PROJECT MINUS ZERO"
+              />
+            </label>
 
-        <label>
-          프로젝트 시작일
-          <input
-            name="startDate"
-            type="date"
-            value={form.startDate}
-            onChange={handleChange}
-          />
-        </label>
+            <label>
+              프로젝트 시작일
+              <input
+                name="startDate"
+                type="date"
+                value={form.startDate}
+                onChange={handleChange}
+              />
+            </label>
 
-        <label>
-          기준 월수입
-          <input
-            name="monthlyIncome"
-            type="text"
-            inputMode="numeric"
-            value={form.monthlyIncome}
-            onChange={handleChange}
-            placeholder="직접 입력"
-          />
-        </label>
+            <label className="v9-wide-field">
+              시작 부채
+              <input
+                name="startDebt"
+                type="text"
+                inputMode="numeric"
+                value={form.startDebt}
+                onChange={handleChange}
+                placeholder="0"
+              />
+            </label>
+          </div>
+        </section>
 
-        <label>
-          필수 고정비
-          <input
-            name="fixedExpense"
-            type="text"
-            inputMode="numeric"
-            value={form.fixedExpense}
-            onChange={handleChange}
-            placeholder="직접 입력"
-          />
-        </label>
+        <section className="v9-settings-panel">
+          <div className="v9-panel-title">
+            <span>MONTHLY PLAN</span>
+            <strong>예산 설정</strong>
+          </div>
 
-        <label>
-          월 목표상환
-          <input
-            name="monthlyGoal"
-            type="text"
-            inputMode="numeric"
-            value={form.monthlyGoal}
-            onChange={handleChange}
-            placeholder="직접 입력"
-          />
-        </label>
+          <div className="v9-form-grid">
+            <label>
+              기준 월수입
+              <input
+                name="monthlyIncome"
+                type="text"
+                inputMode="numeric"
+                value={form.monthlyIncome}
+                onChange={handleChange}
+                placeholder="0"
+              />
+            </label>
 
-        <section
-          style={{
-            padding: "16px",
-            border: "1px solid #dbe4ec",
-            borderRadius: "16px",
-            background: "#f5f8fb",
-          }}
-        >
-          <strong
-            style={{
-              display: "block",
-              marginBottom: "12px",
-            }}
-          >
-            입력값 기준 예산
-          </strong>
+            <label>
+              필수 고정비
+              <input
+                name="fixedExpense"
+                type="text"
+                inputMode="numeric"
+                value={form.fixedExpense}
+                onChange={handleChange}
+                placeholder="0"
+              />
+            </label>
 
-          <dl
-            style={{
-              display: "grid",
-              gap: "10px",
-              margin: 0,
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                gap: "12px",
-              }}
-            >
-              <dt>기준 월수입</dt>
-              <dd style={{ margin: 0 }}>
+            <label className="v9-wide-field">
+              월 목표상환
+              <input
+                name="monthlyGoal"
+                type="text"
+                inputMode="numeric"
+                value={form.monthlyGoal}
+                onChange={handleChange}
+                placeholder="0"
+              />
+            </label>
+          </div>
+        </section>
+
+        <section className="v9-budget-preview">
+          <div className="v9-panel-title">
+            <span>LIVE PREVIEW</span>
+            <strong>입력값 기준 예산</strong>
+          </div>
+
+          <div className="v9-budget-grid">
+            <article>
+              <span>MONTHLY INCOME</span>
+              <strong>
                 {formatWon(preview.monthlyIncome)}
-              </dd>
-            </div>
+              </strong>
+            </article>
 
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                gap: "12px",
-              }}
-            >
-              <dt>필수 고정비</dt>
-              <dd style={{ margin: 0 }}>
+            <article>
+              <span>FIXED EXPENSE</span>
+              <strong className="negative-value">
                 -{formatWon(preview.fixedExpense)}
-              </dd>
-            </div>
+              </strong>
+            </article>
 
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                gap: "12px",
-              }}
-            >
-              <dt>월 목표상환</dt>
-              <dd style={{ margin: 0 }}>
+            <article>
+              <span>MONTHLY PAYMENT</span>
+              <strong className="negative-value">
                 -{formatWon(preview.monthlyGoal)}
-              </dd>
-            </div>
+              </strong>
+            </article>
 
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                gap: "12px",
-                paddingTop: "10px",
-                borderTop: "1px solid #dbe4ec",
-              }}
-            >
-              <dt>
-                <strong>월 가용 생활비</strong>
-              </dt>
-
-              <dd
-                style={{
-                  margin: 0,
-                  color: "#2f80ed",
-                  fontWeight: 800,
-                }}
-              >
+            <article className="v9-budget-highlight">
+              <span>AVAILABLE BUDGET</span>
+              <strong className="positive-value">
                 {formatWon(preview.availableBudget)}
-              </dd>
-            </div>
+              </strong>
+            </article>
 
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                gap: "12px",
-              }}
-            >
-              <dt>
-                <strong>하루 목표지출</strong>
-              </dt>
-
-              <dd
-                style={{
-                  margin: 0,
-                  color: "#2e8b57",
-                  fontWeight: 800,
-                }}
-              >
+            <article className="v9-budget-highlight">
+              <span>DAILY TARGET</span>
+              <strong className="positive-value">
                 {formatWon(preview.dailyBudget)}
-              </dd>
-            </div>
-          </dl>
+              </strong>
+            </article>
+          </div>
         </section>
 
         <button
-          className="primary-btn"
+          className="v9-save-button"
           type="submit"
         >
-          저장
+          Save Settings
         </button>
 
         <button
-          className="danger-btn"
+          className="v9-reset-button"
           type="button"
           onClick={handleReset}
         >

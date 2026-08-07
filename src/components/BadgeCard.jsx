@@ -1,27 +1,25 @@
-import {getBadges} from "../utils/badges.js";
+import { getBadges } from "../utils/badges.js";
 
-export default function BadgeCard({stats}){
-  const badges=getBadges(stats);
+export default function BadgeCard({ stats }) {
+  const badges = getBadges(stats);
+
   return (
-    <section className="next-goal-card">
-      <div className="section-heading">
+    <section className="v8-panel v8-badges">
+      <div className="v8-panel-head">
         <div>
           <span>BADGES</span>
           <strong>{badges.length}개 획득</strong>
         </div>
       </div>
 
-      <div style={{display:"flex",flexWrap:"wrap",gap:"10px",marginTop:"14px"}}>
-        {badges.map((b)=>(
-          <div key={b.title}
-            style={{
-              padding:"10px 14px",
-              borderRadius:"999px",
-              background:"#f5f8fb",
-              border:"1px solid #dbe4ec",
-              fontWeight:700
-            }}>
-            {b.icon} {b.title}
+      <div className="v8-badge-row">
+        {badges.map((badge) => (
+          <div
+            className="v8-badge-chip"
+            key={badge.id || badge.title}
+          >
+            <span>{badge.icon}</span>
+            <strong>{badge.title}</strong>
           </div>
         ))}
       </div>

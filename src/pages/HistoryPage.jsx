@@ -22,14 +22,15 @@ export default function HistoryPage({ onEdit }) {
 
     return [...transactions]
       .filter((item) => {
+        const itemDate = String(item.date || "");
+
         const matchesMonth = selectedMonth
-          ? item.date.startsWith(selectedMonth)
+          ? itemDate.startsWith(selectedMonth)
           : true;
 
         const matchesType =
-          selectedType === "all"
-            ? true
-            : item.type === selectedType;
+          selectedType === "all" ||
+          item.type === selectedType;
 
         const category = String(
           item.category || "",
@@ -52,7 +53,9 @@ export default function HistoryPage({ onEdit }) {
       })
       .sort(
         (a, b) =>
-          b.date.localeCompare(a.date) ||
+          String(b.date || "").localeCompare(
+            String(a.date || ""),
+          ) ||
           String(b.createdAt || "").localeCompare(
             String(a.createdAt || ""),
           ),
@@ -64,25 +67,27 @@ export default function HistoryPage({ onEdit }) {
     keyword,
   ]);
 
-  const summary = useMemo(() => {
-    return filteredTransactions.reduce(
-      (result, item) => {
-        const amount = Number(item.amount || 0);
+  const summary = useMemo(
+    () =>
+      filteredTransactions.reduce(
+        (result, item) => {
+          const amount = Number(item.amount || 0);
 
-        if (item.type === "payment") {
-          result.payment += amount;
-        } else {
-          result.expense += amount;
-        }
+          if (item.type === "payment") {
+            result.payment += amount;
+          } else {
+            result.expense += amount;
+          }
 
-        return result;
-      },
-      {
-        expense: 0,
-        payment: 0,
-      },
-    );
-  }, [filteredTransactions]);
+          return result;
+        },
+        {
+          expense: 0,
+          payment: 0,
+        },
+      ),
+    [filteredTransactions],
+  );
 
   function handleDelete(id) {
     const confirmed = window.confirm(
@@ -95,16 +100,16 @@ export default function HistoryPage({ onEdit }) {
   }
 
   return (
-    <section className="page-card">
-      <h2>거래 내역</h2>
+    <section className="v9-history-shell">
+      <header className="v9-page-heading">
+        <span>TRANSACTION LOG</span>
+        <h2>History</h2>
+        <p>
+          지출과 추가상환 기록을 검색하고 관리합니다.
+        </p>
+      </header>
 
-      <div
-        style={{
-          display: "grid",
-          gap: "12px",
-          marginBottom: "16px",
-        }}
-      >
+      <section className="v9-history-filter">
         <label>
           조회 월
           <input
@@ -132,7 +137,7 @@ export default function HistoryPage({ onEdit }) {
           </select>
         </label>
 
-        <label>
+        <label className="v9-history-search">
           검색
           <input
             type="search"
@@ -143,37 +148,32 @@ export default function HistoryPage({ onEdit }) {
             placeholder="카테고리 또는 메모"
           />
         </label>
-      </div>
+      </section>
 
-      <section
-        className="home-stat-grid"
-        style={{
-          marginBottom: "16px",
-        }}
-      >
-        <article className="home-stat-card">
-          <span>지출 합계</span>
+      <section className="v9-history-summary">
+        <article>
+          <span>EXPENSE</span>
           <strong className="negative-value">
             {formatWon(summary.expense)}
           </strong>
         </article>
 
-        <article className="home-stat-card">
-          <span>추가상환 합계</span>
+        <article>
+          <span>PAYMENT</span>
           <strong className="positive-value">
             {formatWon(summary.payment)}
           </strong>
         </article>
 
-        <article className="home-stat-card">
-          <span>거래 건수</span>
+        <article>
+          <span>RECORDS</span>
           <strong>
             {filteredTransactions.length}건
           </strong>
         </article>
 
-        <article className="home-stat-card">
-          <span>순 회복액</span>
+        <article>
+          <span>NET RECOVERY</span>
           <strong
             className={
               summary.payment - summary.expense >= 0
@@ -188,69 +188,93 @@ export default function HistoryPage({ onEdit }) {
         </article>
       </section>
 
-      {filteredTransactions.length === 0 ? (
-        <p className="empty-message">
-          조건에 맞는 거래가 없습니다.
-        </p>
-      ) : (
-        filteredTransactions.map((item) => (
-          <article
-            className="history-item"
-            key={item.id}
-          >
-            <div>
-              <strong>{item.category}</strong>
+      <section className="v9-history-list">
+        <div className="v9-panel-title">
+          <span>ACTIVITY</span>
+          <strong>거래 내역</strong>
+        </div>
 
-              <p>{item.date}</p>
+        {filteredTransactions.length === 0 ? (
+          <p className="v9-history-empty">
+            조건에 맞는 거래가 없습니다.
+          </p>
+        ) : (
+          <div className="v9-history-stack">
+            {filteredTransactions.map((item) => {
+              const isPayment =
+                item.type === "payment";
 
-              <small>
-                {item.type === "payment"
-                  ? "추가상환"
-                  : "지출"}
-              </small>
-
-              {item.memo && (
-                <small>{item.memo}</small>
-              )}
-            </div>
-
-            <div className="history-actions">
-              <strong
-                className={
-                  item.type === "payment"
-                    ? "payment-text"
-                    : "expense-text"
-                }
-              >
-                {item.type === "payment"
-                  ? "+"
-                  : "-"}
-                {formatWon(item.amount)}
-              </strong>
-
-              <div>
-                <button
-                  className="text-btn"
-                  type="button"
-                  onClick={() => onEdit(item)}
+              return (
+                <article
+                  className="v9-history-row"
+                  key={item.id}
                 >
-                  수정
-                </button>
+                  <div
+                    className={
+                      isPayment
+                        ? "v9-history-icon payment"
+                        : "v9-history-icon expense"
+                    }
+                  >
+                    {isPayment ? "↑" : "↓"}
+                  </div>
 
-                <button
-                  className="text-btn danger-text"
-                  type="button"
-                  onClick={() =>
-                    handleDelete(item.id)
-                  }
-                >
-                  삭제
-                </button>
-              </div>
-            </div>
-          </article>
-        ))
-      )}
+                  <div className="v9-history-main">
+                    <strong>
+                      {item.category || "기타"}
+                    </strong>
+
+                    <div className="v9-history-meta">
+                      <span>{item.date}</span>
+                      <span>
+                        {isPayment
+                          ? "추가상환"
+                          : "지출"}
+                      </span>
+                    </div>
+
+                    {item.memo && (
+                      <p>{item.memo}</p>
+                    )}
+                  </div>
+
+                  <div className="v9-history-side">
+                    <strong
+                      className={
+                        isPayment
+                          ? "payment-text"
+                          : "expense-text"
+                      }
+                    >
+                      {isPayment ? "+" : "-"}
+                      {formatWon(item.amount)}
+                    </strong>
+
+                    <div>
+                      <button
+                        type="button"
+                        onClick={() => onEdit(item)}
+                      >
+                        수정
+                      </button>
+
+                      <button
+                        className="danger"
+                        type="button"
+                        onClick={() =>
+                          handleDelete(item.id)
+                        }
+                      >
+                        삭제
+                      </button>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        )}
+      </section>
     </section>
   );
 }

@@ -29,8 +29,12 @@ export default function App() {
     return (
       <main className="auth-screen">
         <section className="auth-card">
-          <h1>PROJECT MINUS ZERO</h1>
-          <p>로그인 상태를 확인하고 있습니다.</p>
+          <div className="auth-mark">M0</div>
+          <p className="auth-eyebrow">PROJECT MINUS ZERO</p>
+          <h1>Every Day Counts.</h1>
+          <p className="auth-description">
+            로그인 상태를 확인하고 있습니다.
+          </p>
         </section>
       </main>
     );
@@ -40,15 +44,11 @@ export default function App() {
     return (
       <main className="auth-screen">
         <section className="auth-card">
-          <p className="auth-eyebrow">
-            DEBT RECOVERY PROJECT
-          </p>
-
-          <h1>PROJECT MINUS ZERO</h1>
-
+          <div className="auth-mark">M0</div>
+          <p className="auth-eyebrow">PROJECT</p>
+          <h1>MINUS ZERO</h1>
           <p className="auth-description">
-            Google 계정으로 로그인하면 맥과 아이폰에서
-            같은 데이터를 사용할 수 있습니다.
+            Every Day Counts.
           </p>
 
           <button
@@ -56,7 +56,7 @@ export default function App() {
             type="button"
             onClick={login}
           >
-            Google로 로그인
+            Google로 계속하기
           </button>
 
           {authError && (
@@ -111,24 +111,12 @@ export default function App() {
   }
 
   return (
-    <div className="app">
-      <Header />
+    <div className="app-shell">
+      <Header user={user} onLogout={logout} />
 
-      <section className="user-bar">
-        <div>
-          <strong>
-            {user.displayName || user.email}
-          </strong>
-
-          <small>{user.email}</small>
-        </div>
-
-        <button type="button" onClick={logout}>
-          로그아웃
-        </button>
-      </section>
-
-      <main className="main">{renderPage()}</main>
+      <main className="main-shell">
+        {renderPage()}
+      </main>
 
       <BottomNav
         activeTab={activeTab}

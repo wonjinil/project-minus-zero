@@ -6,15 +6,15 @@ export default function DebtTrendChart({
 }) {
   if (!startDebt || dailyRows.length === 0) {
     return (
-      <section className="trend-card">
-        <div className="trend-heading">
+      <section className="v8-panel v8-trend">
+        <div className="v8-panel-head">
           <div>
             <span>DEBT TREND</span>
             <strong>부채 감소 추이</strong>
           </div>
         </div>
 
-        <p className="empty-message">
+        <p className="v8-empty">
           거래를 입력하면 그래프가 표시됩니다.
         </p>
       </section>
@@ -54,16 +54,17 @@ export default function DebtTrendChart({
 
   const range = Math.max(maximum - minimum, 1);
 
-  const polylinePoints = chartPoints
+  const pathPoints = chartPoints
     .map((point, index) => {
       const x =
         chartPoints.length === 1
           ? 50
-          : (index / (chartPoints.length - 1)) * 100;
+          : (index / (chartPoints.length - 1)) *
+            100;
 
       const y =
         88 -
-        ((maximum - point.debt) / range) * 70;
+        ((maximum - point.debt) / range) * 68;
 
       return `${x},${y}`;
     })
@@ -78,8 +79,8 @@ export default function DebtTrendChart({
   );
 
   return (
-    <section className="trend-card">
-      <div className="trend-heading">
+    <section className="v8-panel v8-trend">
+      <div className="v8-panel-head">
         <div>
           <span>DEBT TREND</span>
           <strong>부채 감소 추이</strong>
@@ -88,51 +89,70 @@ export default function DebtTrendChart({
         <p>{formatWon(reducedAmount)} 감소</p>
       </div>
 
-      <div className="trend-chart">
+      <div className="v8-chart">
         <svg
           viewBox="0 0 100 100"
           preserveAspectRatio="none"
           aria-label="부채 감소 그래프"
         >
-          <line
-            x1="0"
-            y1="18"
-            x2="100"
-            y2="18"
-            className="trend-grid-line"
-          />
+          <defs>
+            <linearGradient
+              id="v8ChartFill"
+              x1="0"
+              y1="0"
+              x2="0"
+              y2="1"
+            >
+              <stop
+                offset="0%"
+                stopColor="#4aa3ff"
+                stopOpacity="0.28"
+              />
+              <stop
+                offset="100%"
+                stopColor="#4aa3ff"
+                stopOpacity="0"
+              />
+            </linearGradient>
+          </defs>
 
           <line
             x1="0"
-            y1="53"
+            y1="20"
             x2="100"
-            y2="53"
-            className="trend-grid-line"
+            y2="20"
+            className="v8-chart-grid"
           />
-
+          <line
+            x1="0"
+            y1="54"
+            x2="100"
+            y2="54"
+            className="v8-chart-grid"
+          />
           <line
             x1="0"
             y1="88"
             x2="100"
             y2="88"
-            className="trend-grid-line"
+            className="v8-chart-grid"
+          />
+
+          <polygon
+            points={`0,88 ${pathPoints} 100,88`}
+            className="v8-chart-area"
           />
 
           <polyline
-            points={polylinePoints}
-            className="trend-line"
+            points={pathPoints}
+            className="v8-chart-line"
           />
         </svg>
       </div>
 
-      <div className="trend-footer">
-        <span>
-          시작 {formatWon(startDebt)}
-        </span>
-
-        <strong>
-          현재 {formatWon(latestDebt)}
-        </strong>
+      <div className="v8-chart-footer">
+        <span>START {formatWon(startDebt)}</span>
+        <strong>NOW {formatWon(latestDebt)}</strong>
       </div>
     </section>
   );
